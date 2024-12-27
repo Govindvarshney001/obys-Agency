@@ -1,9 +1,4 @@
-const scroll = new LocomotiveScroll({
-    el: document.querySelector('#main'),
-    smooth: true,
-  });
-  
-  function locomotiveAnimation() {
+    function locomotiveAnimation() {
     gsap.registerPlugin(ScrollTrigger);
   
     const locoScroll = new LocomotiveScroll({
@@ -86,34 +81,92 @@ const scroll = new LocomotiveScroll({
       stagger: 0.2,
     });
   }
-  
+
   function cursorAnimation() {
-    const cursor = document.getElementById("cursor");
-    const cursorPos = { x: 0, y: 0 };
-    const targetPos = { x: 0, y: 0 };
-    const speed = 0.1;
-  
-    document.addEventListener("mousemove", (event) => {
-      targetPos.x = event.clientX;
-      targetPos.y = event.clientY;
+    Shery.mouseFollower({
+      skew: true,
+      ease: "cubic-bezier(0.23, 1, 0.320, 1)",
+      duration: 1,
     });
-  
-    function updateCursor() {
-      cursorPos.x += (targetPos.x - cursorPos.x) * speed;
-      cursorPos.y += (targetPos.y - cursorPos.y) * speed;
-  
-      cursor.style.transform = `translate(${cursorPos.x}px, ${cursorPos.y}px)`;
-  
-      requestAnimationFrame(updateCursor); // Continue the animation
-    }
-  
-    updateCursor(); // Start the cursor animation
-  
-    // Optional: Magnet effect using Shery.js
     Shery.makeMagnet("#nav-part2 h4");
+
+    var video = document.querySelector("#video-container video");
+    var videoContainer =document.querySelector("#video-container");
+    videoContainer.addEventListener("mouseenter",()=>{
+       videoContainer.addEventListener("mousemove",(dets)=>{
+         gsap.to(".mousefollower",{
+          opacity:0
+         })
+         gsap.to("#video-cursor",{
+          left:dets.x -470,
+          y:dets.y -270
+         })
+       })
+    })
+
+    videoContainer.addEventListener("mouseleave",()=>{
+      gsap.to(".mousefollower",{
+       opacity:1
+      })
+      gsap.to("#video-cursor",{
+        left:"80%",
+        top:"-10%"
+      })
+    })
+    videoContainer.addEventListener("click", () => {
+      if (video.paused) {
+          video.play();
+          video.style.opacity = 1;
+          document.querySelector("#video-cursor").innerHTML = `<i class="ri-pause-mini-line"></i>`
+          gsap.to("#video-cursor",{
+            scale:0.5
+          })
+      } else {
+          video.pause();
+          video.style.opacity = 0; // Optional: visually indicate pause
+          document.querySelector("#video-cursor").innerHTML = `<i class="ri-play-mini-line"></i>`
+          gsap.to("#video-cursor",{
+            scale:1
+          })
+      }
+  });
   }
-  
-  LoadingAnimation();
-  locomotiveAnimation();
-  cursorAnimation();
-  
+
+function flagAnimation() {
+  document.addEventListener("mousemove", function (dets) {
+    gsap.to("#flag", {
+      x: dets.x,
+      y: dets.y
+    })
+  })
+  document.querySelector("#hero3").addEventListener("mouseenter", function () {
+    gsap.to("#flag", {
+      opacity: 1
+    })
+  })
+  document.querySelector("#hero3").addEventListener("mouseleave", function () {
+    gsap.to("#flag", {
+      opacity: 0
+    })
+  })
+
+}
+function sheryAnimation() {
+  Shery.imageEffect(".image-div", {
+    style: 5,
+    gooey: true,
+    // debug:true,
+    config:{"a":{"value":2,"range":[0,30]},"b":{"value":0.75,"range":[-1,1]},"zindex":{"value":-9996999,"range":[-9999999,9999999]},"aspect":{"value":0.7241195453907675},"gooey":{"value":true},"infiniteGooey":{"value":false},"growSize":{"value":4,"range":[1,15]},"durationOut":{"value":1,"range":[0.1,5]},"durationIn":{"value":1.5,"range":[0.1,5]},"displaceAmount":{"value":0.5},"masker":{"value":true},"maskVal":{"value":1.23,"range":[1,5]},"scrollType":{"value":0},"geoVertex":{"range":[1,64],"value":1},"noEffectGooey":{"value":true},"onMouse":{"value":0},"noise_speed":{"value":0.5,"range":[0,10]},"metaball":{"value":0.33,"range":[0,2]},"discard_threshold":{"value":0.5,"range":[0,1]},"antialias_threshold":{"value":0.01,"range":[0,0.1]},"noise_height":{"value":0.5,"range":[0,2]},"noise_scale":{"value":10,"range":[0,100]}}
+  });
+}
+
+
+
+
+flagAnimation();
+LoadingAnimation();
+locomotiveAnimation();
+cursorAnimation();
+sheryAnimation();
+
+
