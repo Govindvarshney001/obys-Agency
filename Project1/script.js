@@ -131,6 +131,17 @@
       }
   });
   }
+  var circle = document.querySelector(".circle");
+  circle.addEventListener("mouseenter",()=>{
+    gsap.to(circle,{
+      scale:0.5
+    })
+  })
+  circle.addEventListener("mouseleave",()=>{
+    gsap.to(circle,{
+      scale:1
+    })
+  })
 
 function flagAnimation() {
   document.addEventListener("mousemove", function (dets) {
