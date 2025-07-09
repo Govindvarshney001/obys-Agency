@@ -1053,7 +1053,8 @@ html,body{
         height: 10vw;
         width: 10vw;
         border-radius: 50%;
-        position: absolute;        top: 50%;
+        position: absolute;
+        top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
         display: flex;
@@ -1102,19 +1103,13 @@ html,body{
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-align: start;
-            -ms-flex-align: start;
-                align-items: flex-start;
-        -webkit-box-pack: start;
-            -ms-flex-pack: start;
-                justify-content: flex-start;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     
     .image-div {
-        height: 90vw;
-        width: 90vw;
+        height: 45vw;
+        width: 43vw;
         position: relative;
         overflow: hidden;
             flex-shrink: 0;
@@ -1124,8 +1119,8 @@ html,body{
     }
     
     .image-div:nth-child(1) {
-        height: 90vw;
-        width: 90vw;
+        height: 45vw;
+        width: 43vw;
     }
     
     .image-div img {
